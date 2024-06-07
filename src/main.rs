@@ -110,17 +110,12 @@ fn IterStatic() -> impl IntoView {
 
 #[component]
 fn IterStaticDynamicItem() -> impl IntoView {
-    let values = vec![1,2,3];
+    // create a list of 5 signals
+    let length = 5;
+    let counters = (1..=length).map(|idx| create_signal(idx));
+
+
     view! {
-        // this would render 012
-        <p>{values.clone()}</p>
-        // or wrap it them into <li>
-        <ul>
-            {
-                values.into_iter()
-                    .map(|n| view! { <li>{n}</li>})
-                    .collect::<Vec<_>>()
-            }
-        </ul>
+        
     }
 }
