@@ -1,31 +1,24 @@
-<!DOCTYPE html>
-<html>
-  <head>
+<!DOCTYPE html><html><head>
     <style>
       .red {
         color: red
       }
     </style>
   
-<link rel="modulepreload" href="/leptos-01-build-user-interface-917c2c2c940d854a.js" crossorigin=anonymous integrity="sha384-MdqmaW6TpvOXH3mpeQuUCryfil9UdAF7mVsDU1rx5xOtrXm6SDB/qpdmybGAiN41">
-<link rel="preload" href="/leptos-01-build-user-interface-917c2c2c940d854a_bg.wasm" crossorigin=anonymous integrity="sha384-KYDgPWPciw3PlefOTajnkTsv48n0cMAusOeCW+CmvyIs/wM6OXpfEy/lJkKrekF/" as="fetch" type="application/wasm"></head>
+<link rel="preload" href="/leptos-01-build-user-interface-9c43ab4a689911174d0fbf642a22206d7e4ce54dc01c58128988957e11112002e7d6ebecc8f069667fa7429a5269a18f_bg.wasm" as="fetch" type="application/wasm" crossorigin="anonymous" integrity="sha384-nEOrSmiZERdND79kKiIgbX5M5U3AHFgSiYiVfhERIALn1uvsyPBpZn-nQppSaaGP">
+<link rel="modulepreload" href="/leptos-01-build-user-interface-9c43ab4a689911174d0fbf642a22206d7e4ce54dc01c58128988957e11112002e7d6ebecc8f069667fa7429a5269a18f.js" crossorigin="anonymous" integrity="sha384-6Ewnw880a8sV_el3UJ5U_JMRiaWLkQ7YEz99dsbIkeGniT5R03Fj9zR5BrVtyO5R"></head>
   <body>
+
 <script type="module">
-import init, * as bindings from '/leptos-01-build-user-interface-917c2c2c940d854a.js';
-const wasm = await init('/leptos-01-build-user-interface-917c2c2c940d854a_bg.wasm');
-
-
+import init, * as bindings from '/leptos-01-build-user-interface-9c43ab4a689911174d0fbf642a22206d7e4ce54dc01c58128988957e11112002e7d6ebecc8f069667fa7429a5269a18f.js';
+init('/leptos-01-build-user-interface-9c43ab4a689911174d0fbf642a22206d7e4ce54dc01c58128988957e11112002e7d6ebecc8f069667fa7429a5269a18f_bg.wasm');
 window.wasmBindings = bindings;
-
-
-dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
 
 </script><script>"use strict";
 
 (function () {
 
     const address = '{{__TRUNK_ADDRESS__}}';
-    const base = '{{__TRUNK_WS_BASE__}}';
     let protocol = '';
     protocol =
         protocol
@@ -33,7 +26,7 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
             : window.location.protocol === 'https:'
                 ? 'wss'
                 : 'ws';
-    const url = protocol + '://' + address + base + '.well-known/trunk/ws';
+    const url = protocol + '://' + address + '/_trunk/ws';
 
     class Overlay {
         constructor() {
@@ -149,5 +142,4 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
     new Client(url).start();
 
 })()
-</script></body>
-</html>
+</script></body></html>
