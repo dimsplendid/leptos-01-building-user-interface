@@ -6,14 +6,7 @@ fn main() {
     leptos::mount_to_body(App)
 }
 
-#[component]
-fn App() -> impl IntoView {
-    view! {
-        <div>
-            <ErrorHandleNumericInput/>
-        </div>
-    }
-}
+
 
 // 1. Basic Component
 
@@ -385,14 +378,19 @@ fn ControlFlow() -> impl IntoView {
         </p>
         <p>
 
-            // to prevent expensive over re-rendering, we can use
-            // <Show/> Instead of move || if
-            {move || if is_odd() { "Odd" } else { "Even" }}
-
+        {move || if is_odd() { "Odd" } else { "Even" }}
+        
         </p>
         <p>{message1}</p>
         <p>{message2}</p>
         <p>{message3}</p>
+        // to prevent expensive over re-rendering, we can use
+        // <Show/> Instead of move || if
+        <Show when=is_odd
+            fallback=||view! { <p>"Even Steven"</p> }
+        >
+            <p>"Oddment"</p>
+        </Show>
     }
 }
 
@@ -468,5 +466,40 @@ fn ErrorHandleNumericInput() -> impl IntoView {
                 <p>"You entered " <strong>{value}</strong></p>
             </ErrorBoundary>
         </label>
+    }
+}
+
+// Parent-Child Communication
+
+// 1. Pass a `WriteSignal`
+
+#[component]
+fn ParentChildCommunicationWriteSignal() -> impl IntoView {
+    let (toggled, set_toggled) = create_signal(false);
+    view! {
+        <p>"Toggled?" {toggled}</p>
+        <ButtonA setter=set_toggled/>
+    }
+}
+
+#[component]
+fn ButtonA(setter: WriteSignal<bool>) -> impl IntoView {
+    view! {
+        <button
+            on:click=move |_| setter.update(|v| *v = !*v)
+        >
+            "Toggle"
+        </button>
+    }
+}
+
+
+/// Test Showing Componet
+#[component]
+fn App() -> impl IntoView {
+    view! {
+        <div>
+            <ParentChildCommunicationWriteSignal/>
+        </div>
     }
 }
