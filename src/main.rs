@@ -1,3 +1,4 @@
+use ev::MouseEvent;
 use leptos::*;
 
 fn main() {
@@ -470,24 +471,49 @@ fn ErrorHandleNumericInput() -> impl IntoView {
 }
 
 // Parent-Child Communication
+// Parent -> Child is easy
+// But how about Child -> Parent?
 
 // 1. Pass a `WriteSignal`
-
+// simply pass a `WriteSignal` from the parent down to the child, and update
+// it in the child.
 #[component]
-fn ParentChildCommunicationWriteSignal() -> impl IntoView {
+fn Parent1() -> impl IntoView {
     let (toggled, set_toggled) = create_signal(false);
     view! {
         <p>"Toggled?" {toggled}</p>
-        <ButtonA setter=set_toggled/>
+        <Child1 setter=set_toggled/>
     }
 }
 
 #[component]
-fn ButtonA(setter: WriteSignal<bool>) -> impl IntoView {
+fn Child1(setter: WriteSignal<bool>) -> impl IntoView {
     view! {
         <button
             on:click=move |_| setter.update(|v| *v = !*v)
         >
+            "Toggle"
+        </button>
+    }
+}
+
+// 2. Use a Callback
+#[component]
+fn Parent2() -> impl IntoView {
+    let (toggled, set_toggled) = create_signal(false);
+    view!{
+        <p>"Toggled?" {toggled}</p>
+        <Child2 on_click=move |_| set_toggled.update(|value| *value = !*value)/>
+    }
+}
+
+#[component]
+fn Child2(
+    #[prop(into)]
+    on_click: Callable<MouseEvent>
+) -> impl IntoView {
+    view! {
+        <button on:click=on_click>
             "Toggle"
         </button>
     }
@@ -499,7 +525,7 @@ fn ButtonA(setter: WriteSignal<bool>) -> impl IntoView {
 fn App() -> impl IntoView {
     view! {
         <div>
-            <ParentChildCommunicationWriteSignal/>
+            <Parent1/>
         </div>
     }
 }
